@@ -62,14 +62,16 @@ df -hT
 ```
 - **Purpose:** Displays all mounted filesystems with type and human-readable sizes.
 
-![alt text](image.png)
+<img width="1664" height="824" alt="image" src="https://github.com/user-attachments/assets/1d0a9b1c-96ec-4b28-9f2e-ae6fa100e320" />
+
 - Ensure root (/) is not above 80% usage.
 
 ##### Check Disk Usage by Directory
 ```bash
 du -sh /path/to/directory
 ```
-![alt text](image-1.png)/>
+<img width="1212" height="68" alt="image" src="https://github.com/user-attachments/assets/851a04fc-994a-4e92-aae4-66cdd441be0a" />
+
 
 #### 4.1.2 Identify Top Disk Consumers
 ```bash
@@ -78,7 +80,8 @@ sudo du -ahx / | sort -rh | head -n 20
 - **Purpose:** Lists top 20 largest files/directories on root (`/`).
 - **Note:** Adjust the path as needed for specific mount points.
 
-![alt text](image-2.png)
+<img width="2350" height="624" alt="image" src="https://github.com/user-attachments/assets/2ae980d7-41dd-404d-ab01-1ba3a207ebe0" />
+
 
 #### 4.1.3 Check Inode Usage
 ```bash
@@ -86,7 +89,8 @@ df -i
 ```
 - **Purpose:** Identifies inode exhaustion, which can cause "disk full" errors despite free space.
 
-![alt text](image-3.png)
+<img width="1820" height="822" alt="image" src="https://github.com/user-attachments/assets/ec404ff7-1c86-4a6c-a278-f179803f49ea" />
+
 
 ---
 
@@ -96,46 +100,46 @@ df -i
 ```bash
 mount | column -t
 ```
-![alt text](image-4.png)
+<img width="2026" height="910" alt="image" src="https://github.com/user-attachments/assets/8b9eb5f6-fbc3-4667-913c-0171f329aea9" />
+
 
 or
 ```bash
 lsblk -f
 ```
-![alt text](image-5.png)
+<img width="1914" height="272" alt="image" src="https://github.com/user-attachments/assets/86539db2-1636-4599-8482-32051bb388a1" />
+
 
 - **Purpose:** Shows device, mount point, and filesystem type.
 
-#### 4.2.2 Verify `/etc/fstab` for Persistent Mounts
-```bash
-cat /etc/fstab
-```
-- **Purpose:** Ensures all required filesystems are configured to auto-mount on boot.
-
-<img width="976" height="306" alt="Image" src="https://github.com/user-attachments/assets/acb8611e-bf40-4670-a973-62263701f246" />
 
 #### 4.2.3 Mount/Unmount Filesystems (if necessary)
 - **Detect the New Disk in Ubuntu**
   ```bash
   lsblk
   ```
- ![alt text](image-6.png)
+<img width="882" height="240" alt="image" src="https://github.com/user-attachments/assets/5dc9622a-4c83-419b-b29b-8809b49c3c4c" />
+
 
 - **Partition the New Disk**
   ```bash
   sudo fdisk /dev/sdb
   ```
+  
   Inside fdisk, do the following:
     - Press n → new partition
     - Press p → primary
     - Press 1 → partition number
     - Press Enter (accept defaults for first/last sector)
     - Press w → write changes
+ <img width="1700" height="856" alt="image" src="https://github.com/user-attachments/assets/bbcc8341-bc8e-4d26-9b60-d6024462a6a3" />
+
 - **Now check**
   ```bash
   lsblk
   ```
- ![alt text](image-7.png)
+<img width="882" height="240" alt="lsblk" src="https://github.com/user-attachments/assets/5a0396b6-70a0-489a-9d95-cb13a8a62c38" />
+
 
 
 
@@ -165,21 +169,21 @@ cat /etc/fstab
   ```bash
   ulimit -a
   ```
-  <img width="792" height="496" alt="Image" src="https://github.com/user-attachments/assets/2efc1045-9081-447c-955b-00af0917439d" />
-
+ <img width="1060" height="580" alt="image" src="https://github.com/user-attachments/assets/24b94de8-98f2-4f9f-a4ae-210b46c4e210" />
 
 - For a specific limit (e.g., open files):
   ```bash
   ulimit -n
   ```
-  <img width="488" height="47" alt="Image" src="https://github.com/user-attachments/assets/5e107865-7701-4b7f-82ff-32bc09a2164c" />
+ <img width="990" height="66" alt="image" src="https://github.com/user-attachments/assets/97305095-9c85-4d3b-b249-eb79724e4ea1" />
+
 
 
 #### 4.3.2 Set Temporary Ulimit for Current Session
 ```bash
 ulimit -n 4096
-```
-<img width="510" height="82" alt="Image" src="https://github.com/user-attachments/assets/347db596-42ed-4863-b10b-929c30166e68" />
+<img width="1124" height="112" alt="image" src="https://github.com/user-attachments/assets/bbca3dfc-23b1-4727-a951-292094ada20d" />
+
 
 - **Note:** This change lasts only for the current shell session.
 
@@ -249,7 +253,7 @@ sudo nano /etc/security/limits.conf
 
 | Version | Date       | Author        | Change Description       |
 |---------|------------|---------------|-------------------------|
-| 1.0     | 2025-07-16 | Ashutosh Kr.   | Initial version         |
+| 1.0     | 2026-01-18 | Shreyas AWasthi   | Initial version         |
 
 ---
 
