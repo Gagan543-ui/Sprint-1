@@ -48,15 +48,20 @@ This SOP applies to:
 ```bash
 sudo apt update
 ```
+<img width="1448" height="936" alt="image" src="https://github.com/user-attachments/assets/cc375646-d685-4581-9b25-7ee7edb45c71" />
+
 ### Step 2: Install GNU Make
 ```bash
 sudo apt install make -y
 ```
+<img width="1056" height="184" alt="install_make" src="https://github.com/user-attachments/assets/ad557803-fe63-41ad-ae33-2b057c12885b" />
 
 ### Step 3: Verify installation
 ```bash
 make --version
 ```
+<img width="1432" height="220" alt="check_version" src="https://github.com/user-attachments/assets/d4b7bfd5-2e6f-4737-8bf8-b10a5f260b7f" />
+
 ## 7. Basic Usage
 
 ### Step 1: Navigate to the project directory
@@ -69,6 +74,8 @@ cd /path/to/project
 make
 ```
 This command reads instructions from the Makefile and executes the default target.
+<img width="1374" height="364" alt="image" src="https://github.com/user-attachments/assets/e2d2adf2-b7d5-45dd-b4b7-4b45a55fe655" />
+
 
 ## Makefile Commands
 
