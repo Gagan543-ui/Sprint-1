@@ -76,6 +76,8 @@ python3 --version
 poetry --version
 
 ```
+<img width="1346" height="202" alt="image" src="https://github.com/user-attachments/assets/30be9047-fb3a-4b49-a71d-c81c9fd250a3" />
+
 ---
 ## Python Project Management Using Poetry
 ## 1. Purpose  
@@ -132,6 +134,7 @@ Before starting, ensure:
 python3 --version
 
 ```
+<img width="1146" height="78" alt="image" src="https://github.com/user-attachments/assets/ab9d5e13-c332-45ad-9028-c19de09c86a6" />
 
 ## 5. Tool Overview – What is Poetry?
 
@@ -158,6 +161,7 @@ Step 1: Create project
 ```bash
 poetry new my-poetry-project
 ```
+<img width="1330" height="80" alt="image" src="https://github.com/user-attachments/assets/082a3e80-a704-4664-a66a-a374eae705a9" />
 
 What this does:
 
@@ -182,6 +186,7 @@ my-poetry-project/
 └── tests/
 
 ```
+<img width="1186" height="444" alt="image" src="https://github.com/user-attachments/assets/c2818161-f45e-413f-821a-5518cc898635" />
 
 Explanation:
 
@@ -196,6 +201,8 @@ Step 1: Create virtual environment
 ```bash
 poetry install
 ```
+<img width="1962" height="284" alt="image" src="https://github.com/user-attachments/assets/69538808-6994-4c73-a719-8dc5328c3f94" />
+
 What happens internally:
 
 - Poetry creates a dedicated virtual environment
@@ -213,6 +220,8 @@ Example file creation:
 ```bash
 nano src/my_poetry_project/main.py
 ```
+<img width="1290" height="44" alt="image" src="https://github.com/user-attachments/assets/34145ea6-cbdf-4002-9a5b-9eae7523011a" />
+
 #### Sample code:
 import requests
 
@@ -228,6 +237,7 @@ if __name__ == "__main__":
 ```bash
 poetry run python src/my_poetry_project/main.py
 ```
+<img width="1788" height="136" alt="image" src="https://github.com/user-attachments/assets/5a32e78e-932a-46ba-b430-4c141fe9a440" />
 
 ## 11. Verification & Validation
 
