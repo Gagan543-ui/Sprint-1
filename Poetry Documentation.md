@@ -89,7 +89,7 @@ Poetry is a complete tool for Python project dependency management, packaging, a
 name = "sample-project"
 version = "0.1.0"
 description = "A sample Python project using Poetry"
-authors = ["ashutosh ashutosh.kumar.snaatak@mygurukulam.co"]
+authors = ["shreyas shreyas.awasthi.snaatak@mygurukulam.co "]
 
 [tool.poetry.dependencies]
 python = "^3.8"
