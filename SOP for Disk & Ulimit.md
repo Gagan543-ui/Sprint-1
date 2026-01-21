@@ -149,16 +149,17 @@ lsblk -f
   ```
 - **To mount:**
   ```bash
-  sudo mount /dev/sdXn /mount/point 
+  sudo mount /dev/nvme1n1p1 /mnt/mydisk
   ```
-  <img width="1842" height="767" alt="Image" src="https://github.com/user-attachments/assets/bde1ee55-69c2-46a1-b885-1f92d6f81998" />
+ <img width="1498" height="718" alt="image" src="https://github.com/user-attachments/assets/3b68e80f-8bb0-432f-a7e9-47ddd682075f" />
+
 
   
 - **To unmount:**
   ```bash
-  sudo umount /mount/point
+  sudo umount /mount/mydisk
   ```
-  <img width="1818" height="636" alt="Image" src="https://github.com/user-attachments/assets/ddd1183b-db8a-4eb4-8d26-46a7ba88fd9a" />
+  <img width="1382" height="576" alt="image" src="https://github.com/user-attachments/assets/f2e7b91a-9204-4711-b163-89fc4822678d" />
 
 ---
 
