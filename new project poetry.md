@@ -283,3 +283,12 @@ The SOP is considered complete when:
 
 - Reviewer can reproduce steps
 
+ ## 14. References
+
+| Ref No. | Reference Title                          | Description / Usage                                                    | Link                                                                                         |
+| ------: | ---------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+|       1 | Poetry – Official Documentation          | Primary reference for Poetry concepts, commands, and project structure | [https://python-poetry.org/docs/](https://python-poetry.org/docs/)                           |
+|       2 | Poetry – Installation Guide              | Official steps to install Poetry on different operating systems        | [https://python-poetry.org/docs/#installation](https://python-poetry.org/docs/#installation) |
+|       3 | Python Packaging User Guide              | Best practices for Python dependency and packaging standards           | [https://packaging.python.org/en/latest/](https://packaging.python.org/en/latest/)           |
+|       4 | PEP 518 – pyproject.toml Specification   | Defines the build-system requirements using `pyproject.toml`           | [https://peps.python.org/pep-0518/](https://peps.python.org/pep-0518/)                       |
+
