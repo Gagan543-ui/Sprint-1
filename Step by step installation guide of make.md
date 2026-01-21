@@ -1,5 +1,11 @@
 # GNU Make – Standard Operating Procedure (SOP)
 
+## Author & Version Information
+
+| Author | Created on | Version | Last updated by | Last edited on |
+|--------|------------|---------|-----------------|----------------|
+| Shreyas Awasthi  | 16-01-2026 | latest | Shreyas Awasthi | 19-01-2026 |
+
 ## 1. Purpose
 The purpose of this document is to define a standardized and repeatable procedure for installing, verifying, and using **GNU Make** to automate build and compilation tasks across Linux-based systems.
 
