@@ -1,10 +1,11 @@
-# Title: Disk Usage & Ulimit Configuration on Ubuntu OS
+# Disk Usage & Ulimit Configuration on Ubuntu OS
 
----
+###  Document Details
 
-| Created By      | Created on   | Version | Last updated by   | Pre Reviewer   | L0 Reviewer | L1 Reviewer | L2 Reviewer |
-|-----------------|--------------|---------|-------------------|----------------|-------------|-------------|-------------|
-| Shreyas Awasthi  | 2026-01-16   | 1.0     | Shreyas Awasthi    |                |             |             |             |
+| Author           | Created    | Version | Last updated by  | Last Edited On | L0 Reviewer | L1 Reviewer | L2 Reviewer |
+| ---------------- | ---------- | ------- | ---------------- | -------------- |----------- | ----------- | ----------- |
+| Shreyas Awasthi | 2026-01-20 | 1.0     | Shreyas Awasthi | 2026-01-23     | Mohit Kumar        |   |       |
+| Shreyas Awasthi | 2026-01-20 | 1.1     | Shreyas Awasthi | 2026-01-24    | Divya Mishra         |  Pritam |        |
 
 ---
 
@@ -19,18 +20,15 @@
    &nbsp;&nbsp;&nbsp;4.1.2. [Identify Top Disk Consumers](#412-identify-top-disk-consumers)  
    &nbsp;&nbsp;&nbsp;4.1.3. [Check Inode Usage](#413-check-inode-usage)  
    4.2. [Check and Manage Mount Points](#42-check-and-manage-mount-points)  
-   &nbsp;&nbsp;&nbsp;4.2.1. [List Active Mounts](#421-list-active-mounts)  
-   &nbsp;&nbsp;&nbsp;4.2.2. [Verify `/etc/fstab` for Persistent Mounts](#422-verify-etcfstab-for-persistent-mounts)  
-   &nbsp;&nbsp;&nbsp;4.2.3. [Mount/Unmount Filesystems (if necessary)](#423-mountunmount-filesystems-if-necessary)  
+   &nbsp;&nbsp;&nbsp;4.2.1. [List Active Mounts](#421-list-active-mounts)   
+   &nbsp;&nbsp;&nbsp;4.2.2 [Mount/Unmount Filesystems (if necessary)](#422-mountunmount-filesystems-if-necessary)  
    4.3. [Configure Ulimit Settings](#43-configure-ulimit-settings)  
    &nbsp;&nbsp;&nbsp;4.3.1. [Check Current Ulimit Values](#431-check-current-ulimit-values)  
    &nbsp;&nbsp;&nbsp;4.3.2. [Set Temporary Ulimit for Current Session](#432-set-temporary-ulimit-for-current-session)  
    &nbsp;&nbsp;&nbsp;4.3.3. [Configure Persistent Ulimits for Users](#433-configure-persistent-ulimits-for-users)  
-   &nbsp;&nbsp;&nbsp;4.3.4. [Verify Effective Limits for a User/Process](#434-verify-effective-limits-for-a-userprocess)  
-5. [Troubleshooting](#5-troubleshooting)
-6. [References](#6-references)
-7. [Revision History](#7-revision-history)
-
+5. [Conclusion](#5-conclusion)
+6. [Contact Information](#6-contact-information)
+7. [References](#7-references)
 ---
 
 ## 1. Purpose
@@ -40,31 +38,72 @@ This SOP outlines standardized procedures to:
 on Ubuntu-based systems, ensuring optimal system performance and resource usage.
 
 ---
-
 ## 2. Scope
-Applicable to all Ubuntu servers.
 
+Disk is the storage space where the operating system, applications, and files are permanently saved. If disk space is full, applications and the system may fail.
+
+ulimit is a Linux command that restricts how much system resources a user or process can use, such as memory, CPU, and open files. It prevents one process from overusing system resources.
+
+### Disk Usage Scope
+
+The disk usage scope includes:
+
+- **Monitoring filesystem utilization**  
+  Ensures critical filesystems (such as `/`, `/var`, `/home`) remain within safe usage thresholds.
+- **Identifying high disk consumption areas**  
+  Helps locate large files or directories responsible for excessive disk usage.
+- **Mount point verification and management**  
+  Confirms that required filesystems are properly mounted and accessible.
+**Out of Scope (Disk):**
+- Advanced storage provisioning (RAID, LVM resizing)
+- Filesystem repair or data recovery operations
+  
+### Ulimit Configuration Scope
+
+The ulimit scope includes:
+
+- **Reviewing current ulimit values**  
+  Validates resource limits applied to users and running processes.
+- **Setting temporary ulimit values**  
+  Applies session-based limits for testing or short-term troubleshooting.
+- **Configuring persistent user limits**  
+  Ensures resource limits remain effective after reboot using `limits.conf`.
+**Out of Scope (Ulimit):**
+- Kernel parameter tuning (`sysctl`)
+- Performance benchmarking or stress testing
 ---
 
 ## 3. Prerequisites
-- Access to the Ubuntu server with sudo privileges.
-- Basic knowledge of Linux command-line operations.
+
+Before performing disk usage analysis and ulimit configuration, ensure the following prerequisites are met:
+
+- **Operational access to the Ubuntu server**  
+  SSH access with a user account that can switch to elevated privileges.
+- **Sudo-level permissions**  
+  Required to inspect mount points, manage disks, and apply persistent ulimit configurations.
+- **Working knowledge of filesystem and process limits**  
+  Understanding of filesystems, mount points, and resource limits such as open files (`nofile`) to avoid misconfiguration.
+- **Awareness of application impact**  
+  Knowledge of running services to ensure disk or ulimit changes do not disrupt active workloads.
 
 ---
 
 ## 4. Procedure
 
 ### 4.1 Check Disk Usage
+This command is used to check how much disk space is available and how much is already used on the system.
+
+It shows:
+All mounted disks, Disk type, Total space, Used space and Free space.
+The sizes are shown in an easy-to-read format (GB/MB), so anyone can quickly understand the storage status.
 
 #### 4.1.1 List All Mounted Filesystems & Usage
 ```bash
 df -hT
 ```
 - **Purpose:** Displays all mounted filesystems with type and human-readable sizes.
-
-<img width="1664" height="824" alt="image" src="https://github.com/user-attachments/assets/1d0a9b1c-96ec-4b28-9f2e-ae6fa100e320" />
-
 - Ensure root (/) is not above 80% usage.
+<img width="1664" height="824" alt="image" src="https://github.com/user-attachments/assets/1d0a9b1c-96ec-4b28-9f2e-ae6fa100e320" />
 
 ##### Check Disk Usage by Directory
 ```bash
@@ -84,6 +123,7 @@ sudo du -ahx / | sort -rh | head -n 20
 
 
 #### 4.1.3 Check Inode Usage
+Inode usage shows how many files and folders are present on the disk. Even if free space is available, the system can face issues if all inodes are used.
 ```bash
 df -i
 ```
@@ -91,12 +131,10 @@ df -i
 
 <img width="1820" height="822" alt="image" src="https://github.com/user-attachments/assets/ec404ff7-1c86-4a6c-a278-f179803f49ea" />
 
-
----
-
 ### 4.2 Check and Manage Mount Points
 
 #### 4.2.1 List Active Mounts
+It helps confirm which disks or directories are mounted and active on the system, useful for routine checks and troubleshooting.
 ```bash
 mount | column -t
 ```
@@ -113,7 +151,8 @@ lsblk -f
 - **Purpose:** Shows device, mount point, and filesystem type.
 
 
-#### 4.2.3 Mount/Unmount Filesystems (if necessary)
+#### 4.2.2 Mount/Unmount Filesystems (if necessary)
+Managing mount points means checking, attaching, or removing disks so the system can correctly access storage when needed.
 - **Detect the New Disk in Ubuntu**
   ```bash
   lsblk
@@ -140,9 +179,6 @@ lsblk -f
   ```
 <img width="882" height="240" alt="lsblk" src="https://github.com/user-attachments/assets/5a0396b6-70a0-489a-9d95-cb13a8a62c38" />
 
-
-
-
 - **Create Mount Point**
   ```bash
   sudo mkdir -p /mnt/mydisk
@@ -152,30 +188,27 @@ lsblk -f
   sudo mount /dev/nvme1n1p1 /mnt/mydisk
   ```
  <img width="1498" height="718" alt="image" src="https://github.com/user-attachments/assets/3b68e80f-8bb0-432f-a7e9-47ddd682075f" />
-
-
-  
 - **To unmount:**
   ```bash
   sudo umount /mount/mydisk
   ```
   <img width="1382" height="576" alt="image" src="https://github.com/user-attachments/assets/f2e7b91a-9204-4711-b163-89fc4822678d" />
 
----
-
 ### 4.3 Configure Ulimit Settings
-
+Ulimit is used to control how much system resources a user or process can use, such as open files, memory, or CPU.
 #### 4.3.1 Check Current Ulimit Values
 - For the current shell:
   ```bash
   ulimit -a
   ```
+  Checks the maximum number of files a user or application is allowed to open at one time.
  <img width="1060" height="580" alt="image" src="https://github.com/user-attachments/assets/24b94de8-98f2-4f9f-a4ae-210b46c4e210" />
 
 - For a specific limit (e.g., open files):
   ```bash
   ulimit -n
   ```
+  Checks the maximum number of files a user or application is allowed to open at one time.
  <img width="990" height="66" alt="image" src="https://github.com/user-attachments/assets/97305095-9c85-4d3b-b249-eb79724e4ea1" />
 
 
@@ -183,6 +216,8 @@ lsblk -f
 #### 4.3.2 Set Temporary Ulimit for Current Session
 ```bash
 ulimit -n 4096
+```
+Sets the limit so a user or application can open up to 4096 files at the same time.
 <img width="1124" height="112" alt="image" src="https://github.com/user-attachments/assets/bbca3dfc-23b1-4727-a951-292094ada20d" />
 
 
@@ -208,54 +243,26 @@ sudo nano /etc/security/limits.conf
   - *soft* - Soft limit (can be changed by the user up to the hard limit)
   - *hard* - Maximum limit (cannot be exceeded)
 
-**For systemd services:**
-- Edit the service unit file or create a drop-in override:
-  ```ini
-  [Service]
-  LimitNOFILE=8192
-  ```
-  Reload systemd and restart the service:
-  ```bash
-  sudo systemctl daemon-reload
-  sudo systemctl restart <service-name>
-  ```
+ ---  
+## 5. Conclusion
 
-#### 4.3.4 Verify Effective Limits for a User/Process
-- After login or restart:
-  ```bash
-  ulimit -a
-  ```
-- For a running process (PID):
-  ```bash
-  cat /proc/<PID>/limits
-  ```
+Effective disk usage monitoring and proper ulimit configuration are essential for maintaining system stability and application reliability on Ubuntu systems. Regular disk checks help prevent storage-related issues such as disk exhaustion and inode shortages, which can lead to service outages if left unaddressed.
 
 ---
+## 6. Contact Information
 
-## 5. Troubleshooting
+| Name             | Team                 | Contact Type | Details                                                             |
+| ---------------- | -------------------- |------------ | ------------------------------------------------------------------- |
+| Shreyas Awasthi | Saarthi              |Email        | [shreyas.awasthi.snaatak@mygurukulam.CO](mailto:shreyas.awasthi.snaatak@mygurukulam.CO) |
 
-| Issue                      | Possible Cause                | Solution                                      |
-|----------------------------|-------------------------------|-----------------------------------------------|
-| Disk appears full          | Large files, inode exhaustion | Use `du`, `df -i`, delete unnecessary files   |
-| Ulimit not applied         | PAM misconfig, wrong user     | Check `/etc/security/limits.conf`, relogin    |
-| Mount not persistent       | Missing `/etc/fstab` entry    | Update `/etc/fstab` and mount manually        |
 
 ---
+## 7. References
 
-## 6. References
-
-- [Ubuntu Server Guide: Disk Management](https://help.ubuntu.com/lts/serverguide/filesystems.html)
-- [Ubuntu: Limits.conf Documentation](https://manpages.ubuntu.com/manpages/focal/en/man5/limits.conf.5.html)
-- [Systemd Service Limits](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Process%20Properties)
-
----
-
-## 7. Revision History
-
-| Version | Date       | Author        | Change Description       |
-|---------|------------|---------------|-------------------------|
-| 1.0     | 2026-01-18 | Shreyas AWasthi   | Initial version         |
+| Descriptions | Links |
+|-------------|------|
+| Ubuntu Server Guide – Disk Management | [Disk Management Guide](https://help.ubuntu.com/lts/serverguide/filesystems.html) |
+| Ubuntu Documentation – limits.conf | [Limits.conf Manual](https://manpages.ubuntu.com/manpages/focal/en/man5/limits.conf.5.html) |
+| Systemd Service Resource Limits | [Systemd Exec Documentation](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Process%20Properties) |
 
 ---
-
-**End of SOP**
